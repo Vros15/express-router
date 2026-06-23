@@ -20,6 +20,7 @@ const showsRouter = require ("./routes/showsRouter");
 //4. Set up the URL routes to connect to each router
     // localhost:3000/api/v1/films
 app.use("/api/v1/films", filmsRouter);
+app.use("/api/v1/shows", showsRouter);
 
 
 
