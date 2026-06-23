@@ -80,6 +80,27 @@ router.post("/", (req,res) => {
 })
 
 // 10. Handle PUT requests to /films/[id]
+router.put("/:id", (req, res) => {
+    const FoundFilm = films.find((film) => film.id === req.params.id);
+
+    if(FoundFilm === undefined){
+        res.status(404).json({
+            message: "Failure",
+            payload: "Film not Found"
+        });
+    }
+    else{
+        const incomingObj = req.body;
+
+        Object.assign(FoundFilm, incomingObj);
+
+        res.json({
+            message: "success",
+            payload: FoundFilm,
+        })
+    }
+
+})
 
 
 
