@@ -24,6 +24,7 @@ This application was built to strengthen backend development skills using Node.j
 .
 ├── routes/
 │   └── filmsRouter.js
+|   └── showsRouter.js
 ├── data/
 │   └── films.js
 ├── server.js
