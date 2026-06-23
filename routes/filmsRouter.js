@@ -81,22 +81,25 @@ router.post("/", (req,res) => {
 
 // 10. Handle PUT requests to /films/[id]
 router.put("/:id", (req, res) => {
-    const FoundFilm = films.find((film) => film.id === req.params.id);
+    const foundFilm = films.find((film) => film.id === req.params.id);
 
-    if(FoundFilm === undefined){
+    if(foundFilm === undefined){
         res.status(404).json({
             message: "Failure",
             payload: "Film not Found"
         });
     }
     else{
-        const incomingObj = req.body;
+        const updatedFilm = {
+            name: req.body.name || foundFilm.name,
+            boxOffice: req.body.boxOffice || foundFilm.boxOffice}
 
-        Object.assign(FoundFilm, incomingObj);
+        //Prevents user from updating ID, copy over only necessary data from the request body into new object
+        Object.assign(foundFilm, updatedFilm);
 
         res.json({
             message: "success",
-            payload: FoundFilm,
+            payload: foundFilm,
         })
     }
 
@@ -105,6 +108,18 @@ router.put("/:id", (req, res) => {
 
 
 // 11. Handle DELETE requests to /films/[id]
+
+router.delete("/:id", (req,res) => {
+    const FoundFilm = films.find((film) => film.id === req.params.id);
+
+    if(FoundFilm === undefined){
+        res.status(404).json({
+            message: "Failure",
+            payload: "Film not Found"
+        });
+    }
+
+})
 
 
 
