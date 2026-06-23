@@ -13,6 +13,7 @@ app.use(express.json());
 
 // 3. Import Router files
 const filmsRouter = require("./routes/filmsRouter");
+const showsRouter = require ("./routes/showsRouter");
 
 
 
