@@ -109,17 +109,21 @@ router.put("/:id", (req, res) => {
 
 // 11. Handle DELETE requests to /films/[id]
 
-router.delete("/:id", (req,res) => {
-    const FoundFilm = films.find((film) => film.id === req.params.id);
 
-    if(FoundFilm === undefined){
-        res.status(404).json({
-            message: "Failure",
-            payload: "Film not Found"
-        });
-    }
+router.delete("/:id", (req, res) => {
+  const filmToDelete = films.find((film) => {
+    return film.id === req.params.id;
+  });
 
-})
+  if (filmToDelete) {
+    const results = films.filter((film) => film.id !== filmToDelete.id);
+    films = results;
+    res.json({ message: `${filmToDelete.name} successfully deleted!`});
+    
+  } else {
+    res.status(404).json({ message: "Film not found" });
+  }
+});
 
 
 
