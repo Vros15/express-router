@@ -50,12 +50,8 @@ let films =[
 // 8a. Handle GET requests to /films
 router.get("/", (req,res) => {
 
-    res.json({
-        message: "Success", 
-        payload: film
-    });
-
-    module.exports = router;
+    res.json(films)
+    
 
 })
 
