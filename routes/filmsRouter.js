@@ -14,6 +14,8 @@ const router = express.Router();
 // Version 8 (custom)
 const uuid  = require("uuid").v4;
 
+//Import lodash
+const _ = require("lodash");
 
 
 
@@ -45,15 +47,28 @@ let films =[
 
 
 // 12. Create sort method for the films
+const sort = (data, sortByProperty,sortOrder) => {
 
+    //sort data
+    const sortedData = _.sortBy(data,sortByProperty)
+
+    //sortOrder - asc
+    //sortOder - desc
+    if(sortOrder === "desc"){
+        sortedData.reverse();
+    }
+    return sortedData;
+
+
+}
 
 // 8a. Handle GET requests to /films
 router.get("/", (req,res) => {
-
-    res.json(films)
+    //req.query.sortBy
+    const sortedFilms = sort(films, req.query.sortBy, req.query.sortOrder)
+    res.json(sortedFilms);
     
-
-})
+});
 
 
 
@@ -119,7 +134,7 @@ router.delete("/:id", (req, res) => {
     const results = films.filter((film) => film.id !== filmToDelete.id);
     films = results;
     res.json({ message: `${filmToDelete.name} successfully deleted!`});
-    
+
   } else {
     res.status(404).json({ message: "Film not found" });
   }
